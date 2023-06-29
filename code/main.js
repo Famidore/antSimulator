@@ -1,7 +1,19 @@
+let ants = [];
+
+
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(800, 800);
+
+  for (let i = 0; i < 10; i++){
+    ants.push(new Ant(0, 0, 10));
+  }
 }
 
 function draw() {
-  background(220);
+  background(51);
+
+  for (ant of ants){
+    ant.show();
+    ant.move();
+  }
 }
