@@ -1,9 +1,12 @@
 let ants = [];
 let nests = [];
 let foodies = [];
+let world;
 
 var nestsPop = 5;
 var antsPop = 50;
+
+var foodRange = 20;
 
 function preload() {
 
@@ -21,10 +24,14 @@ function setup() {
     }
   }
 
+  world = new WorldMatrix(100, 100, 1);
+  world.createWorldMap();
 }
 
 function draw() {
   background(51);
+
+  world.show();
 
   for (ant of ants) {
     ant.show();
@@ -38,6 +45,13 @@ function draw() {
   for (food of foodies){
     food.show();
   }
+
+  noFill();
+  stroke(150);
+  strokeWeight(1);
+  rectMode(CENTER);
+  rect(mouseX, mouseY, foodRange, foodRange);
+
 }
 
 
@@ -45,9 +59,9 @@ function spawnFood(x, y, range, ammount, values) {
   for (let i = 0; i < ammount; i++) {
     foodies.push(new Food(random(x - range / 2, x + range / 2), random(y - range / 2, y + range / 2), values[floor(random(0, values.length))]))
   }
-  console.log(foodies[0]);
 }
 
 function mousePressed() {
-  spawnFood(mouseX, mouseY, 20, 5, [5, 6, 7, 8, 9]);
+  spawnFood(mouseX, mouseY, foodRange, 5, [5, 6, 7, 8, 9]);
+  console.log(world.worldMap);
 }

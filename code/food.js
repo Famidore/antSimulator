@@ -3,6 +3,8 @@ class Food{
         this.x = tempX;
         this.y = tempY;
         this.value = tempValue;
+
+        this.isCarried = false;
     }
 
     show(){

@@ -15,6 +15,14 @@ class Ant {
 
         this.xoff = 0;
         this.yoff = 0;
+
+
+        // battle stats
+
+        this.attack = 3;
+        this.health = 10;
+
+        this.foodFound = false;
     }
 
     show() {
@@ -55,5 +63,19 @@ class Ant {
 
         this.x += nx;
         this.y += ny;
+
+        // do rotation
+    }
+
+    findFood(){
+        
+    }
+
+    carryFood(){
+        
+    }
+
+    returnToNest(){
+
     }
 }
