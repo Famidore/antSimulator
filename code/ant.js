@@ -42,10 +42,16 @@ class Ant {
     }
 
     move() {
-        this.xoff += 0.002;
-        this.yoff += 0.003;
-        var nx = noise(this.xoff);
-        var ny = noise(this.yoff);
+        // this.xoff += 0.002;
+        // this.yoff += 0.003;
+        // var nx = noise(this.xoff);
+        // var ny = noise(this.yoff);
+
+
+        //random for now
+
+        var nx = random(-1, 1);
+        var ny = random(-1, 1);
 
         this.x += nx;
         this.y += ny;

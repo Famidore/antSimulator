@@ -1,5 +1,6 @@
 let ants = [];
 let nests = [];
+let foodies = [];
 
 var nestsPop = 5;
 var antsPop = 50;
@@ -33,4 +34,20 @@ function draw() {
     nest.show();
     nest.grow();
   }
+
+  for (food of foodies){
+    food.show();
+  }
+}
+
+
+function spawnFood(x, y, range, ammount, values) {
+  for (let i = 0; i < ammount; i++) {
+    foodies.push(new Food(random(x - range / 2, x + range / 2), random(y - range / 2, y + range / 2), values[floor(random(0, values.length))]))
+  }
+  console.log(foodies[0]);
+}
+
+function mousePressed() {
+  spawnFood(mouseX, mouseY, 20, 5, [5, 6, 7, 8, 9]);
 }
