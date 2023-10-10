@@ -17,7 +17,7 @@ class Food {
         if (this.isCarried == false) {
             world.worldMap[floor(this.x / world.rectWidth)][floor(this.y / world.rectHeight)] == 100;
 
-            world.smellMap.push([floor(this.x / world.rectWidth)][floor(this.y / world.rectHeight)]);
+            //world.smellMap.push([floor(this.x / world.rectWidth)][floor(this.y / world.rectHeight)]);
         }
     }
 

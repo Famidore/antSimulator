@@ -52,21 +52,22 @@ function draw() {
   strokeWeight(1);
   rectMode(CENTER);
   rect(mouseX, mouseY, foodRange, foodRange);
-
 }
 
 
 function spawnFood(x, y, range, ammount, values) {
   for (let i = 0; i < ammount; i++) {
     if (x > range && y > range && x < width - range && y < height - range) {
-      foodies.push(new Food(random(x - range / 2, x + range / 2), random(y - range / 2, y + range / 2), values[floor(random(0, values.length))]))
 
-      // console.log(world.worldMap, floor(foodies[0].x / world.rectWidth), floor(foodies[0].y / world.rectHeight));
+      var fx = random(x - range / 2, x + range / 2);
+      var fy = random(y - range / 2, y + range / 2);
+      foodies.push(new Food(fx, fy, values[floor(random(0, values.length))]))
+
+      world.smellMap.push([floor(fx / world.rectWidth), floor(fy / world.rectHeight)])
     }
   }
 }
 
 function mousePressed() {
   spawnFood(mouseX, mouseY, foodRange, 5, [5, 6, 7, 8, 9]);
-  // console.log(world.worldMap);
 }
