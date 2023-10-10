@@ -59,7 +59,27 @@ class WorldMatrix {
                 rectMode(CORNER);
                 rect(this.smellMap[z][0] * this.rectWidth, this.smellMap[z][1] * this.rectHeight, this.rectWidth, this.rectHeight);
             }
+        }
+    }
 
+    spreadSmell() {
+        if (frameCount % 360 == 0) {
+            if (this.smellMap.length > 0) {
+                var l = this.smellMap.length;
+                for (let z = 0; z < l; z++) {
+                    this.smellMap.push([this.smellMap[z][0] - 1, [this.smellMap[z][1]]    ]);       // -1  0
+                    this.smellMap.push([this.smellMap[z][0] + 1, [this.smellMap[z][1]]    ]);       // +1  0
+                    this.smellMap.push([this.smellMap[z][0],     [this.smellMap[z][1]] - 1]);       // 0  -1
+                    this.smellMap.push([this.smellMap[z][0],     [this.smellMap[z][1]] + 1]);       // 0  +1
+                    this.smellMap.push([this.smellMap[z][0] - 1, [this.smellMap[z][1]] - 1]);       // -1 -1
+                    this.smellMap.push([this.smellMap[z][0] + 1, [this.smellMap[z][1]] + 1]);       // +1 +1
+                    this.smellMap.push([this.smellMap[z][0] - 1, [this.smellMap[z][1]] + 1]);       // -1 +1
+                    this.smellMap.push([this.smellMap[z][0] + 1, [this.smellMap[z][1]] - 1]);       // +1 -1
+                    
+                }
+
+                console.log('Spreaded')
+            }
         }
     }
 }

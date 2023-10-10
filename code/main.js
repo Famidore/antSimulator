@@ -32,6 +32,7 @@ function draw() {
   background(51);
 
   world.show();
+  world.spreadSmell();
 
   for (ant of ants) {
     // ant.show();
