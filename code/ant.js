@@ -67,15 +67,15 @@ class Ant {
         // do rotation
     }
 
-    findFood(){
-        
+    findFood() {
+
     }
 
-    carryFood(){
-        
+    carryFood() {
+
     }
 
-    returnToNest(){
+    returnToNest() {
 
     }
 }

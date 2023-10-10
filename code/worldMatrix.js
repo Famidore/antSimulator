@@ -5,8 +5,8 @@ class WorldMatrix {
         this.evapRate = tempEvapRate;
         this.worldMap = [];
 
-        this.rectWidth = width/this.xSize;
-        this.rectHeight = height/this.ySize;
+        this.rectWidth = width / this.xSize;
+        this.rectHeight = height / this.ySize;
     }
 
     createWorldMap() {
@@ -21,7 +21,9 @@ class WorldMatrix {
     evaporate() {
         for (let i = 0; i < this.xSize; i++) {
             for (let j = 0; j < this.ySize; j++) {
-                this.worldMap[i][j] -= evapRate;
+                if (this.worldMap[i][j] > 0) {
+                    this.worldMap[i][j] -= evapRate;
+                }
             }
         }
 
@@ -31,10 +33,10 @@ class WorldMatrix {
         // 1st
         stroke(150, 50);
         strokeWeight(1);
-        for (let i = 0; i < this.xSize; i++){
+        for (let i = 0; i < this.xSize; i++) {
             line(this.rectWidth * i, 0, this.rectWidth * i, height);
         }
-        for (let i = 0; i < this.ySize; i++){
+        for (let i = 0; i < this.ySize; i++) {
             line(0, this.rectHeight * i, width, this.rectHeight * i);
         }
 
@@ -47,5 +49,16 @@ class WorldMatrix {
         //         rect(i * this.rectWidth, j * this.rectHeight, this.rectWidth, this.rectHeight);
         //     }
         // }
+
+
+        for (let i = 0; i < this.xSize; i++) {
+            for (let j = 0; j < this.ySize; j++) {
+                if (this.worldMap[i][j] > 0){
+                    noStroke();
+                    fill(this.worldMap[i][j], 0, 0, 100);
+                    rect(i, j, this.rectWidth, this.rectHeight);
+                }
+            }
+        }
     }
 }

@@ -34,16 +34,17 @@ function draw() {
   world.show();
 
   for (ant of ants) {
-    ant.show();
-    ant.move();
+    // ant.show();
+    // ant.move();
   }
   for (nest of nests) {
     nest.show();
     nest.grow();
   }
 
-  for (food of foodies){
+  for (food of foodies) {
     food.show();
+    food.smell();
   }
 
   noFill();
@@ -63,5 +64,5 @@ function spawnFood(x, y, range, ammount, values) {
 
 function mousePressed() {
   spawnFood(mouseX, mouseY, foodRange, 5, [5, 6, 7, 8, 9]);
-  console.log(world.worldMap);
+  // console.log(world.worldMap);
 }

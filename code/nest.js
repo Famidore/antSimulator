@@ -24,7 +24,7 @@ class Nest {
     }
 
     grow() {
-        if (this.food >= 100){
+        if (this.food >= 100) {
             this.food = 0;
             this.produceAnt();
             this.size += 1;

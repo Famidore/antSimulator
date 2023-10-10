@@ -1,5 +1,5 @@
-class Food{
-    constructor(tempX, tempY, tempValue){
+class Food {
+    constructor(tempX, tempY, tempValue) {
         this.x = tempX;
         this.y = tempY;
         this.value = tempValue;
@@ -7,10 +7,16 @@ class Food{
         this.isCarried = false;
     }
 
-    show(){
+    show() {
         noStroke();
         fill(0, 0, 255);
-        ellipse(this.x, this.y, this.value); 
+        ellipse(this.x, this.y, this.value);
+    }
+
+    smell() {
+        if (this.isCarried == false) {
+            world.worldMap[floor(this.x * world.rectWidth)][floor(this.y* world.rectHeight)] == 100;
+        }
     }
 
 }
