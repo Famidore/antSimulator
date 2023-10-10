@@ -64,6 +64,7 @@ function spawnFood(x, y, range, ammount, values) {
       foodies.push(new Food(fx, fy, values[floor(random(0, values.length))]))
 
       world.smellMap.push([floor(fx / world.rectWidth), floor(fy / world.rectHeight)])
+      world.worldMap[floor(fx / world.rectWidth)][floor(fy / world.rectHeight)] += 100;
     }
   }
 }

@@ -52,24 +52,10 @@ class WorldMatrix {
         //     }
         // }
 
-
-        // for (let i = 0; i < this.xSize; i++) {
-        //     for (let j = 0; j < this.ySize; j++) {
-        //         if (this.worldMap[i][j] > 0){
-
-        //             console.log(i, j);
-        //             noStroke();
-        //             fill(this.worldMap[i][j], 0, 0, 100);
-        //             rect(i * rectWidth, j * rectHeight, this.rectWidth, this.rectHeight);
-
-        //         }
-        //     }
-        // }
-
         if (this.smellMap.length > 0) {
             for (let z = 0; z < this.smellMap.length; z++) {
                 noStroke();
-                fill(255, 0, 0, 100);
+                fill(this.worldMap[this.smellMap[z][0]][this.smellMap[z][1]], 0, 0, 100);
                 rectMode(CORNER);
                 rect(this.smellMap[z][0] * this.rectWidth, this.smellMap[z][1] * this.rectHeight, this.rectWidth, this.rectHeight);
             }
