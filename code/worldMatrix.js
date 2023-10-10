@@ -7,6 +7,8 @@ class WorldMatrix {
 
         this.rectWidth = width / this.xSize;
         this.rectHeight = height / this.ySize;
+
+        this.smellMap = [];
     }
 
     createWorldMap() {
@@ -54,9 +56,12 @@ class WorldMatrix {
         for (let i = 0; i < this.xSize; i++) {
             for (let j = 0; j < this.ySize; j++) {
                 if (this.worldMap[i][j] > 0){
+
+                    console.log(i, j);
                     noStroke();
                     fill(this.worldMap[i][j], 0, 0, 100);
-                    rect(i, j, this.rectWidth, this.rectHeight);
+                    rect(i * rectWidth, j * rectHeight, this.rectWidth, this.rectHeight);
+                    
                 }
             }
         }

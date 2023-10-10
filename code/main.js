@@ -58,7 +58,11 @@ function draw() {
 
 function spawnFood(x, y, range, ammount, values) {
   for (let i = 0; i < ammount; i++) {
-    foodies.push(new Food(random(x - range / 2, x + range / 2), random(y - range / 2, y + range / 2), values[floor(random(0, values.length))]))
+    if (x > range && y > range && x < width - range && y < height - range) {
+      foodies.push(new Food(random(x - range / 2, x + range / 2), random(y - range / 2, y + range / 2), values[floor(random(0, values.length))]))
+
+      // console.log(world.worldMap, floor(foodies[0].x / world.rectWidth), floor(foodies[0].y / world.rectHeight));
+    }
   }
 }
 
