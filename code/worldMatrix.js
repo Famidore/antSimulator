@@ -63,22 +63,39 @@ class WorldMatrix {
     }
 
     spreadSmell() {
-        if (frameCount % 360 == 0) {
+        if (frameCount % 120 == 0) {
             if (this.smellMap.length > 0) {
-                var l = this.smellMap.length;
-                for (let z = 0; z < l; z++) {
-                    this.smellMap.push([this.smellMap[z][0] - 1, [this.smellMap[z][1]]    ]);       // -1  0
-                    this.smellMap.push([this.smellMap[z][0] + 1, [this.smellMap[z][1]]    ]);       // +1  0
-                    this.smellMap.push([this.smellMap[z][0],     [this.smellMap[z][1]] - 1]);       // 0  -1
-                    this.smellMap.push([this.smellMap[z][0],     [this.smellMap[z][1]] + 1]);       // 0  +1
-                    this.smellMap.push([this.smellMap[z][0] - 1, [this.smellMap[z][1]] - 1]);       // -1 -1
-                    this.smellMap.push([this.smellMap[z][0] + 1, [this.smellMap[z][1]] + 1]);       // +1 +1
-                    this.smellMap.push([this.smellMap[z][0] - 1, [this.smellMap[z][1]] + 1]);       // -1 +1
-                    this.smellMap.push([this.smellMap[z][0] + 1, [this.smellMap[z][1]] - 1]);       // +1 -1
-                    
-                }
+                var chosen = floor(random(0, this.smellMap.length));
+                var chosenStrength = this.worldMap[this.smellMap[chosen][0]][this.smellMap[chosen][1]];
 
-                console.log('Spreaded')
+                if (chosen && chosenStrength > 25) {
+
+                    // console.log(chosenStrength)
+
+                    this.smellMap.push([this.smellMap[chosen][0] - 1, [this.smellMap[chosen][1]]]);       // -1  0
+                    this.worldMap[this.smellMap[chosen][0] - 1][this.smellMap[chosen][1]] = chosenStrength / 2;
+
+                    this.smellMap.push([this.smellMap[chosen][0] + 1, [this.smellMap[chosen][1]]]);       // +1  0
+                    this.worldMap[this.smellMap[chosen][0] + 1][this.smellMap[chosen][1]] = chosenStrength / 2;
+
+                    this.smellMap.push([this.smellMap[chosen][0], [this.smellMap[chosen][1]] - 1]);       // 0  -1
+                    this.worldMap[this.smellMap[chosen][0]][this.smellMap[chosen][1] - 1] = chosenStrength / 2;
+
+                    this.smellMap.push([this.smellMap[chosen][0], [this.smellMap[chosen][1]] + 1]);       // 0  +1
+                    this.worldMap[this.smellMap[chosen][0]][this.smellMap[chosen][1] + 1] = chosenStrength / 2;
+
+                    this.smellMap.push([this.smellMap[chosen][0] - 1, [this.smellMap[chosen][1]] - 1]);       // -1 -1
+                    this.worldMap[this.smellMap[chosen][0] - 1][this.smellMap[chosen][1] - 1] = chosenStrength / 2;
+
+                    this.smellMap.push([this.smellMap[chosen][0] + 1, [this.smellMap[chosen][1]] + 1]);       // +1 +1
+                    this.worldMap[this.smellMap[chosen][0] + 1][this.smellMap[chosen][1] + 1] = chosenStrength / 2;
+
+                    this.smellMap.push([this.smellMap[chosen][0] - 1, [this.smellMap[chosen][1]] + 1]);       // -1 +1
+                    this.worldMap[this.smellMap[chosen][0] - 1][this.smellMap[chosen][1] + 1] = chosenStrength / 2;
+
+                    this.smellMap.push([this.smellMap[chosen][0] + 1, [this.smellMap[chosen][1]] - 1]);       // +1 -1
+                    this.worldMap[this.smellMap[chosen][0] + 1][this.smellMap[chosen][1] - 1] = chosenStrength / 2;
+                }
             }
         }
     }
