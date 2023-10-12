@@ -24,7 +24,7 @@ class WorldMatrix {
         for (let i = 0; i < this.xSize; i++) {
             for (let j = 0; j < this.ySize; j++) {
                 if (this.worldMap[i][j] > 0) {
-                    this.worldMap[i][j] -= evapRate;
+                    this.worldMap[i][j] -= this.evapRate;
                 }
             }
         }
@@ -70,7 +70,7 @@ class WorldMatrix {
 
                 if (chosen && chosenStrength > 25) {
 
-                    // console.log(chosenStrength)
+                    // the good garbage
 
                     this.smellMap.push([this.smellMap[chosen][0] - 1, [this.smellMap[chosen][1]]]);       // -1  0
                     this.worldMap[this.smellMap[chosen][0] - 1][this.smellMap[chosen][1]] = chosenStrength / 2;
@@ -95,6 +95,16 @@ class WorldMatrix {
 
                     this.smellMap.push([this.smellMap[chosen][0] + 1, [this.smellMap[chosen][1]] - 1]);       // +1 -1
                     this.worldMap[this.smellMap[chosen][0] + 1][this.smellMap[chosen][1] - 1] = chosenStrength / 2;
+                }
+            }
+        }
+    }
+
+    tidyUp(){
+        if (this.smellMap.length > 0 && frameCount % 120 == 0){
+            for (let i = 0; i < this.smellMap.length; i++){
+                if (this.worldMap[this.smellMap[i][0]][this.smellMap[i][1]] < 1){
+                    this.smellMap.splice(this.smellMap[i], 1);
                 }
             }
         }

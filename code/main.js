@@ -24,7 +24,7 @@ function setup() {
     }
   }
 
-  world = new WorldMatrix(100, 100, 1);
+  world = new WorldMatrix(100, 100, 0.001);
   world.createWorldMap();
 }
 
@@ -53,6 +53,9 @@ function draw() {
   strokeWeight(1);
   rectMode(CENTER);
   rect(mouseX, mouseY, foodRange, foodRange);
+
+  world.evaporate();
+  world.tidyUp();
 }
 
 
