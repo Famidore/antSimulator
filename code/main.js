@@ -3,8 +3,8 @@ let nests = [];
 let foodies = [];
 let world;
 
-var nestsPop = 5;
-var antsPop = 50;
+var nestsPop = 2;
+var antsPop = 1000;
 
 var foodRange = 20;
 
@@ -17,15 +17,15 @@ function preload() {
 function setup() {
   createCanvas(800, 800);
 
+  world = new WorldMatrix(100, 100, 20);
+  world.createWorldMap();
+
   for (let j = 0; j < nestsPop; j++) {
     nests.push(new Nest(random(50, width - 50), random(50, height - 50), 'none', j))
     for (let i = 0; i < antsPop; i++) {
-      ants.push(new Ant(nests[j].x, nests[j].y, 5, i, j));
+      ants.push(new Ant(nests[j].x, nests[j].y, 2, i, j));
     }
   }
-
-  world = new WorldMatrix(100, 100, 12);
-  world.createWorldMap();
 }
 
 function draw() {
@@ -35,8 +35,8 @@ function draw() {
   world.spreadSmell();
 
   for (ant of ants) {
-    // ant.show();
-    // ant.move();
+    ant.show();
+    ant.move();
   }
   for (nest of nests) {
     nest.show();
@@ -67,7 +67,7 @@ function spawnFood(x, y, range, ammount, values) {
       foodies.push(new Food(fx, fy, values[floor(random(0, values.length))]))
 
       world.smellMap.push([floor(fx / world.rectWidth), floor(fy / world.rectHeight)])
-      world.worldMap[floor(fx / world.rectWidth)][floor(fy / world.rectHeight)] += 100;
+      world.worldMap[floor(fx / world.rectWidth)][floor(fy / world.rectHeight)] += 225;
     }
   }
 }

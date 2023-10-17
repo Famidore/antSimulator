@@ -23,6 +23,9 @@ class Ant {
         this.health = 10;
 
         this.foodFound = false;
+
+        this.rectW = world.rectWidth;
+        this.rectH = world.rectHeight;
     }
 
     show() {
@@ -36,7 +39,7 @@ class Ant {
         rotate(radians(this.angle));
 
         noStroke();
-        fill(255, 50, 100);
+        fill(255, 50, 100, 100);
 
 
         // noFill()
@@ -50,21 +53,20 @@ class Ant {
     }
 
     move() {
-        // this.xoff += 0.002;
-        // this.yoff += 0.003;
+        this.x += random(-1, 1);
+        this.y += random(-1, 1);
+
+        // this.xoff += random(-0.001, 0.003);
+        // this.yoff += random(-0.001, 0.003);
         // var nx = noise(this.xoff);
         // var ny = noise(this.yoff);
 
-
-        //random for now
-
-        var nx = random(-1, 1);
-        var ny = random(-1, 1);
-
-        this.x += nx;
-        this.y += ny;
+        // this.x = nx * width;
+        // this.y = ny * height;
 
         // do rotation
+
+        this.releasePheromone();
     }
 
     findFood() {
@@ -76,6 +78,16 @@ class Ant {
     }
 
     returnToNest() {
+
+    }
+
+    releasePheromone() {
+        if (frameCount % world.delay == 0) {
+            if (world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] < 12) {
+                world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] += 125;
+                world.feromoneMap.push([floor(floor(this.x) / this.rectW), floor(floor(this.y) / this.rectH)]);
+            }
+        }
 
     }
 }

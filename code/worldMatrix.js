@@ -4,13 +4,14 @@ class WorldMatrix {
         this.ySize = tempYSize;
         this.evapRate = tempEvapRate;
         this.worldMap = [];
+        this.feromoneMap = [];
 
         this.rectWidth = width / this.xSize;
         this.rectHeight = height / this.ySize;
 
         this.smellMap = [];
 
-        this.delay = 30;
+        this.delay = 120;
         this.deleteValue = 24;
         this.spreadStrength = 3
     }
@@ -25,10 +26,12 @@ class WorldMatrix {
     }
 
     evaporate() {
-        for (let i = 0; i < this.xSize; i++) {
-            for (let j = 0; j < this.ySize; j++) {
-                if (this.worldMap[i][j] > 0) {
-                    this.worldMap[i][j] -= this.evapRate;
+        if (frameCount % this.delay == 0) {
+            for (let i = 0; i < this.xSize; i++) {
+                for (let j = 0; j < this.ySize; j++) {
+                    if (this.worldMap[i][j] > 0) {
+                        this.worldMap[i][j] -= this.evapRate;
+                    }
                 }
             }
         }
@@ -62,6 +65,15 @@ class WorldMatrix {
                 fill(255, 0, 0, this.worldMap[this.smellMap[z][0]][this.smellMap[z][1]]);
                 rectMode(CORNER);
                 rect(this.smellMap[z][0] * this.rectWidth, this.smellMap[z][1] * this.rectHeight, this.rectWidth, this.rectHeight);
+            }
+        }
+
+        if (this.feromoneMap.length > 0) {
+            for (let c = 0; c < this.feromoneMap.length; c++) {
+                noStroke();
+                fill(0, 255, 51, this.worldMap[this.feromoneMap[c][0]][this.feromoneMap[c][1]]);
+                rectMode(CORNER);
+                rect(this.feromoneMap[c][0] * this.rectWidth, this.feromoneMap[c][1] * this.rectHeight, this.rectWidth, this.rectHeight);
             }
         }
     }
@@ -112,7 +124,15 @@ class WorldMatrix {
                     this.smellMap.splice(this.smellMap[i], 1);
                 }
             }
-            // console.log(this.smellMap.length);
+        }
+
+        if (this.feromoneMap.length > 0 && frameCount % this.delay == 0) {
+            for (let i = 0; i < this.feromoneMap.length; i++) {
+                if (this.worldMap[this.feromoneMap[i][0]][this.feromoneMap[i][1]] < this.deleteValue) {
+                    this.feromoneMap.splice(this.feromoneMap[i], 1);
+                }
+            }
+            console.log(this.feromoneMap.length)
         }
     }
 }
