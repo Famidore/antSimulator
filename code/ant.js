@@ -33,7 +33,7 @@ class Ant {
         this.x = constrain(this.x, this.rectW, width - this.rectW);
         this.y = constrain(this.y, this.rectH, height - this.rectH);
 
-        rect(this.x, this.y, this.size, this.size * 2);
+        rect(this.x, this.y, this.size, this.size);
     }
 
     move() {
@@ -46,6 +46,11 @@ class Ant {
         //     this.y += random(-this.moveSpeed, this.moveSpeed) + (mouseY - this.y) * 0.001;
         // }
 
+
+        /*
+        if (found food){
+        
+        */
         this.releasePheromone();
     }
 

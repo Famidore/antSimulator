@@ -3,8 +3,8 @@ let nests = [];
 let foodies = [];
 let world;
 
-var nestsPop = 2;
-var antsPop = 5000;
+var nestsPop = 3;
+var antsPop = 1000;
 
 var foodRange = 20;
 
@@ -17,7 +17,7 @@ function setup() {
   world.createWorldMap();
 
   for (let j = 0; j < nestsPop; j++) {
-    nests.push(new Nest(random(50, width - 50), random(50, height - 50), 'none', j))
+    nests.push(new Nest(random(50, width - 50), random(50, height - 50), 'none', j, [random(100, 255), random(10, 255), random(50, 255)]))
     for (let i = 0; i < antsPop; i++) {
       ants.push(new Ant(nests[j].x, nests[j].y, 2, i, j));
     }
@@ -32,8 +32,8 @@ function draw() {
 
 
   noStroke();
-  fill(255, 50, 100, 100);
   for (ant of ants) {
+    fill(nests[ant.nestID].r, nests[ant.nestID].g, nests[ant.nestID].b, 200);
     ant.show();
     ant.move();
   }

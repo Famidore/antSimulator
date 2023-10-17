@@ -1,14 +1,14 @@
 class Nest {
-    constructor(tempX, tempY, tempType, tempID) {
+    constructor(tempX, tempY, tempType, tempID, tempCol) {
         this.ID = tempID;
 
         this.x = tempX;
         this.y = tempY;
         this.type = tempType;
 
-        this.r = 0;
-        this.g = 255;
-        this.b = 0;
+        this.r = tempCol[0];
+        this.g = tempCol[1];
+        this.b = tempCol[2];
 
         this.size = 10;
 
