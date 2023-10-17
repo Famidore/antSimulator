@@ -11,8 +11,6 @@ class Ant {
         this.size = tempSize;
         this.angle = 0;
 
-        this.modelPath = antWorkerModel;
-
         this.xoff = 0;
         this.yoff = 0;
 
@@ -21,50 +19,32 @@ class Ant {
 
         this.attack = 3;
         this.health = 10;
+        this.moveSpeed = 1;
 
         this.foodFound = false;
 
         this.rectW = world.rectWidth;
         this.rectH = world.rectHeight;
+
+        this.followMouse = false;
     }
 
     show() {
+        this.x = constrain(this.x, this.rectW, width - this.rectW);
+        this.y = constrain(this.y, this.rectH, height - this.rectH);
 
-        // this.angle += 1;
-        this.x = constrain(this.x, 0, width);
-        this.y = constrain(this.y, 0, height);
-
-        push();
-        translate(this.x, this.y);
-        rotate(radians(this.angle));
-
-        noStroke();
-        fill(255, 50, 100, 100);
-
-
-        // noFill()
-        // imageMode(CENTER)
-        // this.modelPath.resize(this.size, this.size * 2)
-        // image(this.modelPath, 0, 0)
-        //stroke(255);
-        rect(0, 0, this.size, this.size * 2);
-
-        pop();
+        rect(this.x, this.y, this.size, this.size * 2);
     }
 
     move() {
-        this.x += random(-1, 1);
-        this.y += random(-1, 1);
+        // if (!this.followMouse) {
+        this.x += (Math.random() - 0.5) * 2 * this.moveSpeed;
+        this.y += (Math.random() - 0.5) * 2 * this.moveSpeed;
 
-        // this.xoff += random(-0.001, 0.003);
-        // this.yoff += random(-0.001, 0.003);
-        // var nx = noise(this.xoff);
-        // var ny = noise(this.yoff);
-
-        // this.x = nx * width;
-        // this.y = ny * height;
-
-        // do rotation
+        // } else {
+        //     this.x += random(-this.moveSpeed, this.moveSpeed) + (mouseX - this.x) * 0.001;
+        //     this.y += random(-this.moveSpeed, this.moveSpeed) + (mouseY - this.y) * 0.001;
+        // }
 
         this.releasePheromone();
     }
@@ -83,8 +63,8 @@ class Ant {
 
     releasePheromone() {
         if (frameCount % world.delay == 0) {
-            if (world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] < 12) {
-                world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] += 125;
+            if (world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] < 150) {
+                world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] += 20;
                 world.feromoneMap.push([floor(floor(this.x) / this.rectW), floor(floor(this.y) / this.rectH)]);
             }
         }

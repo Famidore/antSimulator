@@ -12,7 +12,7 @@ class WorldMatrix {
         this.smellMap = [];
 
         this.delay = 120;
-        this.deleteValue = 24;
+        this.deleteValue = 11;
         this.spreadStrength = 3
     }
 
@@ -71,7 +71,7 @@ class WorldMatrix {
         if (this.feromoneMap.length > 0) {
             for (let c = 0; c < this.feromoneMap.length; c++) {
                 noStroke();
-                fill(0, 255, 51, this.worldMap[this.feromoneMap[c][0]][this.feromoneMap[c][1]]);
+                fill(120, 51, 200, this.worldMap[this.feromoneMap[c][0]][this.feromoneMap[c][1]]);
                 rectMode(CORNER);
                 rect(this.feromoneMap[c][0] * this.rectWidth, this.feromoneMap[c][1] * this.rectHeight, this.rectWidth, this.rectHeight);
             }

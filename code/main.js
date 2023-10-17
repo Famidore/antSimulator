@@ -4,17 +4,13 @@ let foodies = [];
 let world;
 
 var nestsPop = 2;
-var antsPop = 1000;
+var antsPop = 5000;
 
 var foodRange = 20;
 
-function preload() {
-
-  antWorkerModel = loadImage('assets/antModel1.png');
-}
-
 
 function setup() {
+  frameRate(60);
   createCanvas(800, 800);
 
   world = new WorldMatrix(100, 100, 20);
@@ -34,6 +30,9 @@ function draw() {
   world.show();
   world.spreadSmell();
 
+
+  noStroke();
+  fill(255, 50, 100, 100);
   for (ant of ants) {
     ant.show();
     ant.move();
@@ -55,6 +54,11 @@ function draw() {
   rect(mouseX, mouseY, foodRange, foodRange);
 
   world.tidyUp();
+
+  let fps = frameRate();
+  fill(255);
+  stroke(0);
+  text("FPS: " + fps.toFixed(2), 10, height - 10);
 }
 
 
