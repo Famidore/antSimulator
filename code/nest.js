@@ -21,6 +21,12 @@ class Nest {
         fill(this.r, this.g, this.b);
         rectMode(CENTER);
         rect(this.x, this.y, this.size, this.size);
+
+        fill(255);
+        stroke(0);
+        textAlign(CENTER, CENTER);
+        textSize(20);
+        text(this.size, this.x, this.y - 30);
     }
 
     grow() {

@@ -3,10 +3,10 @@ let nests = [];
 let foodies = [];
 let world;
 
-var nestsPop = 3;
+var nestsPop = 2;
 var antsPop = 1000;
 
-var foodRange = 20;
+var foodRange = 50;
 
 
 function setup() {
@@ -44,7 +44,7 @@ function draw() {
 
   for (food of foodies) {
     food.show();
-    food.smell();
+    // food.smell();
   }
 
   noFill();
@@ -56,9 +56,12 @@ function draw() {
   world.tidyUp();
 
   let fps = frameRate();
+  textSize(15)
   fill(255);
   stroke(0);
   text("FPS: " + fps.toFixed(2), 10, height - 10);
+
+  // console.log([floor(floor(ants[0].x) / ants[0].rectW), floor(floor(ants[0].y) / ants[0].rectH)])
 }
 
 
@@ -68,10 +71,11 @@ function spawnFood(x, y, range, ammount, values) {
 
       var fx = random(x - range / 2, x + range / 2);
       var fy = random(y - range / 2, y + range / 2);
-      foodies.push(new Food(fx, fy, values[floor(random(0, values.length))]))
+      foodies.push(new Food(fx, fy, values[floor(random(0, values.length))], foodies.length + 1))
 
-      world.smellMap.push([floor(fx / world.rectWidth), floor(fy / world.rectHeight)])
+      world.smellMap.push([floor(fx / world.rectWidth), floor(fy / world.rectHeight)]);
       world.worldMap[floor(fx / world.rectWidth)][floor(fy / world.rectHeight)] += 225;
+      world.foodMap.push([floor(fx / world.rectWidth), floor(fy / world.rectHeight)]);
     }
   }
 }

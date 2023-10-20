@@ -1,5 +1,7 @@
 class Food {
-    constructor(tempX, tempY, tempValue) {
+    constructor(tempX, tempY, tempValue, tempID) {
+        this.ID = tempID;
+
         this.x = tempX;
         this.y = tempY;
         this.value = tempValue;

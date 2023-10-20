@@ -22,6 +22,7 @@ class Ant {
         this.moveSpeed = 1;
 
         this.foodFound = false;
+        this.carriedFoodID = null;
 
         this.rectW = world.rectWidth;
         this.rectH = world.rectHeight;
@@ -47,23 +48,31 @@ class Ant {
         // }
 
 
-        /*
-        if (found food){
-        
-        */
-        this.releasePheromone();
-    }
-
-    findFood() {
-
+        if (!this.foodFound) {
+            if (world.foodMap.includes([floor(floor(this.x) / this.rectW), floor(floor(this.y) / this.rectH)])) {
+                this.foodFound = true;
+                console.log("food found")
+                for (let i = 0; i < foodies.length; i++) {
+                    if (foodies[i].x == floor(floor(this.x) / this.rectW) && foodies[i].y == floor(floor(this.y) / this.rectH)) {
+                        this.carriedFoodID = i;
+                    }
+                }
+            }
+        } else {
+            this.releasePheromone();
+            this.carryFood();
+            this.returnToNest();
+        }
     }
 
     carryFood() {
-
+        foodies[this.carriedFoodID].x = this.x;
+        foodies[this.carriedFoodID].y = this.y;
     }
 
     returnToNest() {
-
+        this.x += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].x - this.x) * 0.001;
+        this.y += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].y - this.y) * 0.001;
     }
 
     releasePheromone() {

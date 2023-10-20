@@ -6,6 +6,7 @@ class WorldMatrix {
 
         this.worldMap = [];
         this.feromoneMap = [];
+        this.foodMap = [];
 
         this.rectWidth = width / this.xSize;
         this.rectHeight = height / this.ySize;
