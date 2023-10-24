@@ -53,9 +53,11 @@ class Ant {
                 this.foodFound = true;
                 // console.log("food found")
                 for (let i = 0; i < foodies.length; i++) {
-                    if (dist(this.x, this.y, foodies[i].x, foodies[i].y) < this.rectW && !foodies[i].isCarried) {
+                    if (dist(this.x, this.y, foodies[i].x, foodies[i].y) < this.rectW) {
                         this.carriedFoodID = i;
-                        foodies[i].isCarried = true;
+                        if (!foodies[i].isCarried) {
+                            foodies[i].isCarried = true;
+                        }
                     }
                 }
             }
@@ -74,13 +76,15 @@ class Ant {
     }
 
     returnToNest() {
-        if (dist(this.x, this.y, nests[this.nestID].x, nests[this.nestID].y) >= nests[this.nestID].size) {
+        if (dist(this.x, this.y, nests[this.nestID].x, nests[this.nestID].y) >= nests[this.nestID].size / 2) {
             this.x += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].x - this.x) * 0.01;
             this.y += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].y - this.y) * 0.01;
         } else {
+
+            // carried food gets it's id mixed up, need to use indexOf()
             if (this.foodFound) {
-                nests[this.nestID].size += foodies[this.carriedFoodID].value;
-                foodies[this.foodFound].removeSelf();
+                nests[this.nestID].size += foodies[this.carriedFoodID].value / 2;
+                foodies[this.carriedFoodID].removeSelf();
                 foodies.splice(this.carriedFoodID, 1);
                 this.foodFound = false;
                 this.carriedFoodID = null;

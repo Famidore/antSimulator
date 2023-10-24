@@ -3,8 +3,8 @@ let nests = [];
 let foodies = [];
 let world;
 
-var nestsPop = 2;
-var antsPop = 1000;
+var nestsPop = 5;
+var antsPop = 2000;
 
 var foodRange = 50;
 
