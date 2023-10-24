@@ -49,12 +49,13 @@ class Ant {
 
 
         if (!this.foodFound) {
-            if (world.foodMap.includes([floor(floor(this.x) / this.rectW), floor(floor(this.y) / this.rectH)])) {
+            if (ifContains(world.foodMap, [floor(floor(this.x) / this.rectW), floor(floor(this.y) / this.rectH)])) {
                 this.foodFound = true;
-                console.log("food found")
+                // console.log("food found")
                 for (let i = 0; i < foodies.length; i++) {
-                    if (foodies[i].x == floor(floor(this.x) / this.rectW) && foodies[i].y == floor(floor(this.y) / this.rectH)) {
+                    if (dist(this.x, this.y, foodies[i].x, foodies[i].y) < this.rectW && !foodies[i].isCarried) {
                         this.carriedFoodID = i;
+                        foodies[i].isCarried = true;
                     }
                 }
             }
@@ -66,13 +67,26 @@ class Ant {
     }
 
     carryFood() {
-        foodies[this.carriedFoodID].x = this.x;
-        foodies[this.carriedFoodID].y = this.y;
+        if (this.carriedFoodID) {
+            foodies[this.carriedFoodID].x = this.x;
+            foodies[this.carriedFoodID].y = this.y;
+        }
     }
 
     returnToNest() {
-        this.x += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].x - this.x) * 0.001;
-        this.y += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].y - this.y) * 0.001;
+        if (dist(this.x, this.y, nests[this.nestID].x, nests[this.nestID].y) >= nests[this.nestID].size) {
+            this.x += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].x - this.x) * 0.01;
+            this.y += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].y - this.y) * 0.01;
+        } else {
+            if (this.foodFound) {
+                nests[this.nestID].size += foodies[this.carriedFoodID].value;
+                foodies[this.foodFound].removeSelf();
+                foodies.splice(this.carriedFoodID, 1);
+                this.foodFound = false;
+                this.carriedFoodID = null;
+                console.log("returned");
+            }
+        }
     }
 
     releasePheromone() {

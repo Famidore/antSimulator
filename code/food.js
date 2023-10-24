@@ -7,6 +7,7 @@ class Food {
         this.value = tempValue;
 
         this.isCarried = false;
+        this.selfPos = [floor(this.x / world.rectWidth), floor(this.y / world.rectHeight)];
     }
 
     show() {
@@ -19,6 +20,15 @@ class Food {
         if (this.isCarried == false) {
             world.worldMap[floor(this.x / world.rectWidth)][floor(this.y / world.rectHeight)] = 200;
         }
+    }
+
+    removeSelf(){
+        for (let i = 0; i < world.foodMap.length; i++){
+            if (JSON.stringify(world.foodMap[i]) == JSON.stringify(this.selfPos)){
+                world.foodMap.splice(i, 1);
+            }
+        }
+        
     }
 
 }

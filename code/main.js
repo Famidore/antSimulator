@@ -8,6 +8,8 @@ var antsPop = 1000;
 
 var foodRange = 50;
 
+let foodCount = 0;
+
 
 function setup() {
   frameRate(60);
@@ -71,7 +73,9 @@ function spawnFood(x, y, range, ammount, values) {
 
       var fx = random(x - range / 2, x + range / 2);
       var fy = random(y - range / 2, y + range / 2);
-      foodies.push(new Food(fx, fy, values[floor(random(0, values.length))], foodies.length + 1))
+      foodies.push(new Food(fx, fy, values[floor(random(0, values.length))], foodCount))
+
+      foodCount++;
 
       world.smellMap.push([floor(fx / world.rectWidth), floor(fy / world.rectHeight)]);
       world.worldMap[floor(fx / world.rectWidth)][floor(fy / world.rectHeight)] += 225;

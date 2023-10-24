@@ -61,14 +61,14 @@ class WorldMatrix {
         //     }
         // }
 
-        noStroke();
-        rectMode(CORNER);
-        if (this.smellMap.length > 0) {
-            for (let z = 0; z < this.smellMap.length; z++) {
-                fill(255, 0, 0, this.worldMap[this.smellMap[z][0]][this.smellMap[z][1]]);
-                rect(this.smellMap[z][0] * this.rectWidth, this.smellMap[z][1] * this.rectHeight, this.rectWidth, this.rectHeight);
-            }
-        }
+        // noStroke();
+        // rectMode(CORNER);
+        // if (this.smellMap.length > 0) {
+        //     for (let z = 0; z < this.smellMap.length; z++) {
+        //         fill(255, 0, 0, this.worldMap[this.smellMap[z][0]][this.smellMap[z][1]]);
+        //         rect(this.smellMap[z][0] * this.rectWidth, this.smellMap[z][1] * this.rectHeight, this.rectWidth, this.rectHeight);
+        //     }
+        // }
 
         noStroke();
         rectMode(CORNER);
