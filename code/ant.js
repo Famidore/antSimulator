@@ -83,12 +83,7 @@ class Ant {
 
             // carried food gets it's id mixed up, need to use indexOf()
             if (this.foodFound) {
-                nests[this.nestID].size += foodies[this.carriedFoodID].value / 2;
-                foodies[this.carriedFoodID].removeSelf();
-                foodies.splice(this.carriedFoodID, 1);
-                this.foodFound = false;
-                this.carriedFoodID = null;
-                console.log("returned");
+                this.removeFood();
             }
         }
     }
@@ -96,10 +91,29 @@ class Ant {
     releasePheromone() {
         if (frameCount % world.delay == 0) {
             if (world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] < 150) {
-                world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] += 20;
+                world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] += 50;
                 world.feromoneMap.push([floor(floor(this.x) / this.rectW), floor(floor(this.y) / this.rectH)]);
             }
         }
 
+    }
+
+    removeFood() {
+        if (foodies[this.carriedFoodID]) {
+            nests[this.nestID].food += foodies[this.carriedFoodID].value;
+            foodies[this.carriedFoodID].removeSelf();
+            foodies.splice(this.carriedFoodID, 1);
+
+            for (let i = 0; i < ants.length; i++) {
+                if (ants[i].foodFound && ants[i].ID != this.ID)
+                    if (ants[i].carriedFoodID > this.carriedFoodID) {
+                        ants[i].carriedFoodID -= 1;
+                    }
+            }
+
+            this.foodFound = false;
+            this.carriedFoodID = null;
+            console.log("returned");
+        }
     }
 }

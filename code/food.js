@@ -22,13 +22,13 @@ class Food {
         }
     }
 
-    removeSelf(){
-        for (let i = 0; i < world.foodMap.length; i++){
-            if (JSON.stringify(world.foodMap[i]) == JSON.stringify(this.selfPos)){
+    removeSelf() {
+        for (let i = 0; i < world.foodMap.length; i++) {
+            if (JSON.stringify(world.foodMap[i]) == JSON.stringify(this.selfPos)) {
                 world.foodMap.splice(i, 1);
             }
         }
-        
+
     }
 
 }

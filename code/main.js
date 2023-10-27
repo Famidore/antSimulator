@@ -6,16 +6,19 @@ let world;
 var nestsPop = 5;
 var antsPop = 2000;
 
-var foodRange = 50;
+var foodAmmount = 100;
+var foodRange = 100;
 
 let foodCount = 0;
+
+let evaporateRate = 10;
 
 
 function setup() {
   frameRate(60);
   createCanvas(800, 800);
 
-  world = new WorldMatrix(100, 100, 20);
+  world = new WorldMatrix(100, 100, evaporateRate);
   world.createWorldMap();
 
   for (let j = 0; j < nestsPop; j++) {
@@ -30,7 +33,8 @@ function draw() {
   background(51);
 
   world.show();
-  world.spreadSmell();
+  // world.spreadSmell();
+  world.evaporate();
 
 
   noStroke();
@@ -85,5 +89,5 @@ function spawnFood(x, y, range, ammount, values) {
 }
 
 function mousePressed() {
-  spawnFood(mouseX, mouseY, foodRange, 5, [5, 6, 7, 8, 9]);
+  spawnFood(mouseX, mouseY, foodRange, foodAmmount, [5, 6, 7, 8, 9]);
 }

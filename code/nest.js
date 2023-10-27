@@ -26,7 +26,7 @@ class Nest {
         stroke(0);
         textAlign(CENTER, CENTER);
         textSize(20);
-        text(this.size, this.x, this.y - 30);
+        text(this.food, this.x, this.y - 30);
     }
 
     grow() {
@@ -38,6 +38,6 @@ class Nest {
     }
 
     produceAnt() {
-        ants.push(new Ant(this.x, this.y, 5, ants.length + 1));
+        ants.push(new Ant(this.x, this.y, 2, ants.length + 1, this.ID));
     }
 }

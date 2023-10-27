@@ -13,7 +13,7 @@ class WorldMatrix {
 
         this.smellMap = [];
 
-        this.delay = 120;
+        this.delay = 30;
         this.deleteValue = 11;
         this.spreadStrength = 4;
     }
@@ -84,7 +84,7 @@ class WorldMatrix {
 
     spreadSmell() {
         if (frameCount % this.delay == 0) {
-            for (food of foodies) {
+            for (let food of foodies) {
                 if (this.smellMap.length > 0) {
                     var chosen = floor(random(0, this.smellMap.length));
                     var chosenStrength = this.worldMap[this.smellMap[chosen][0]][this.smellMap[chosen][1]];
@@ -138,7 +138,7 @@ class WorldMatrix {
                     this.feromoneMap.splice(this.feromoneMap[i], 1);
                 }
             }
-            console.log(this.feromoneMap.length)
+            // console.log(this.feromoneMap.length)
         }
     }
 }
