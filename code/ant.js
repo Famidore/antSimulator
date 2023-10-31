@@ -28,6 +28,9 @@ class Ant {
         this.rectH = world.rectHeight;
 
         this.followMouse = false;
+
+        this.currX = floor(floor(this.x) / this.rectW);
+        this.currY = floor(floor(this.y) / this.rectH);
     }
 
     show() {
@@ -39,8 +42,6 @@ class Ant {
 
     move() {
         // if (!this.followMouse) {
-        this.x += (Math.random() - 0.5) * 2 * this.moveSpeed;
-        this.y += (Math.random() - 0.5) * 2 * this.moveSpeed;
 
         // } else {
         //     this.x += random(-this.moveSpeed, this.moveSpeed) + (mouseX - this.x) * 0.001;
@@ -60,6 +61,14 @@ class Ant {
                         }
                     }
                 }
+            } else {
+                if (this.checkIfNewPos()) {
+                    newMove = this.checkPheromone(this.currX, this.currY);
+
+                    this.x += (Math.random() - 0.5) * 2 * this.moveSpeed + (newMove[0] * this.rectW) * 0.01;
+                    this.y += (Math.random() - 0.5) * 2 * this.moveSpeed + (newMove[1] * this.rectH) * 0.01;
+                }
+
             }
         } else {
             this.releasePheromone();
@@ -115,14 +124,17 @@ class Ant {
         }
     }
 
-    checkIfNewPos(currX, currY) {
-        if (floor(floor(this.x) / this.rectW) != floor(floor(currX) / this.rectW) && floor(floor(this.y) / this.rectH) != floor(floor(currY) / this.rectH)) {
+    checkIfNewPos() {
+        if (floor(floor(this.x) / this.rectW) != this.currX || floor(floor(this.y) / this.rectH) != this.currY) {
+            this.currX = floor(floor(this.x) / this.rectW);
+            this.currY = floor(floor(this.y) / this.rectH);
             return true;
         } else {
             return false;
         }
     }
 
+    // find new square to head to
     checkPheromone(xPos, yPos) {
         var lu = world.worldMap[xPos - 1][yPos - 1];
         var ll = world.worldMap[xPos - 1][yPos];
@@ -138,5 +150,19 @@ class Ant {
         const arr = [lu, ll, ld, uu, dd, ru, rr, rd];
 
         const max = Math.max(arr)
+        const chosen = arr[arr.indexOf(max)]
+
+        switch (chosen) {
+            case lu: return [-1, -1]; break;
+            case ll: return [-1, 0]; break;
+            case ld: return [-1, +1]; break;
+            case uu: return [0, -1]; break;
+            case dd: return [0, +1]; break;
+            case ru: return [+1, -1]; break;
+            case rr: return [+1, -0]; break;
+            case rd: return [+1, +1]; break;
+
+            default: return [floor(random(-1, 1)), floor(random(-1, 1))]; break;
+        }
     }
 }
