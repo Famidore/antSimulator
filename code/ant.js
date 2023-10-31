@@ -41,18 +41,9 @@ class Ant {
     }
 
     move() {
-        // if (!this.followMouse) {
-
-        // } else {
-        //     this.x += random(-this.moveSpeed, this.moveSpeed) + (mouseX - this.x) * 0.001;
-        //     this.y += random(-this.moveSpeed, this.moveSpeed) + (mouseY - this.y) * 0.001;
-        // }
-
-
         if (!this.foodFound) {
             if (ifContains(world.foodMap, [floor(floor(this.x) / this.rectW), floor(floor(this.y) / this.rectH)])) {
                 this.foodFound = true;
-                // console.log("food found")
                 for (let i = 0; i < foodies.length; i++) {
                     if (dist(this.x, this.y, foodies[i].x, foodies[i].y) < this.rectW) {
                         this.carriedFoodID = i;
