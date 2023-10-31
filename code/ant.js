@@ -80,8 +80,6 @@ class Ant {
             this.x += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].x - this.x) * 0.01;
             this.y += random(-this.moveSpeed, this.moveSpeed) + (nests[this.nestID].y - this.y) * 0.01;
         } else {
-
-            // carried food gets it's id mixed up, need to use indexOf()
             if (this.foodFound) {
                 this.removeFood();
             }
@@ -115,5 +113,30 @@ class Ant {
             this.carriedFoodID = null;
             console.log("returned");
         }
+    }
+
+    checkIfNewPos(currX, currY) {
+        if (floor(floor(this.x) / this.rectW) != floor(floor(currX) / this.rectW) && floor(floor(this.y) / this.rectH) != floor(floor(currY) / this.rectH)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    checkPheromone(xPos, yPos) {
+        var lu = world.worldMap[xPos - 1][yPos - 1];
+        var ll = world.worldMap[xPos - 1][yPos];
+        var ld = world.worldMap[xPos - 1][yPos + 1];
+
+        var uu = world.worldMap[xPos][yPos - 1];
+        var dd = world.worldMap[xPos][yPos + 1];
+
+        var ru = world.worldMap[xPos + 1][yPos - 1];
+        var rr = world.worldMap[xPos + 1][yPos];
+        var rd = world.worldMap[xPos + 1][yPos + 1];
+
+        const arr = [lu, ll, ld, uu, dd, ru, rr, rd];
+
+        const max = Math.max(arr)
     }
 }

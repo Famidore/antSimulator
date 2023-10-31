@@ -18,7 +18,7 @@ function setup() {
   frameRate(60);
   createCanvas(800, 800);
 
-  world = new WorldMatrix(100, 100, evaporateRate);
+  world = new WorldMatrix(200, 200, evaporateRate);
   world.createWorldMap();
 
   for (let j = 0; j < nestsPop; j++) {
