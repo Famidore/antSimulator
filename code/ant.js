@@ -19,7 +19,7 @@ class Ant {
 
         this.attack = 3;
         this.health = 10;
-        this.moveSpeed = 1;
+        this.moveSpeed = 2;
 
         this.foodFound = false;
         this.carriedFoodID = null;
@@ -34,7 +34,7 @@ class Ant {
     }
 
     show() {
-        this.x = constrain(this.x, this.rectW, width - this.rectW);
+        this.x = constrain(this.x, this.rectW * this.moveSpeed, width - this.rectW * this.moveSpeed);
         this.y = constrain(this.y, this.rectH, height - this.rectH);
 
         rect(this.x, this.y, this.size, this.size);
@@ -54,10 +54,13 @@ class Ant {
                 }
             } else {
                 if (this.checkIfNewPos()) {
-                    newMove = this.checkPheromone(this.currX, this.currY);
+                    var newMove = this.checkPheromone(this.currX, this.currY);
 
-                    this.x += (Math.random() - 0.5) * 2 * this.moveSpeed + (newMove[0] * this.rectW) * 0.01;
-                    this.y += (Math.random() - 0.5) * 2 * this.moveSpeed + (newMove[1] * this.rectH) * 0.01;
+                    this.x += (Math.random() - 0.5) * 2 * this.moveSpeed + (newMove[0] * this.rectW) * 0.1;
+                    this.y += (Math.random() - 0.5) * 2 * this.moveSpeed + (newMove[1] * this.rectH) * 0.1;
+                } else {
+                    this.x += (Math.random() - 0.5) * 2 * this.moveSpeed;
+                    this.y += (Math.random() - 0.5) * 2 * this.moveSpeed;
                 }
 
             }
@@ -69,7 +72,7 @@ class Ant {
     }
 
     carryFood() {
-        if (this.carriedFoodID) {
+        if (this.carriedFoodID && foodies[this.carriedFoodID]) {
             foodies[this.carriedFoodID].x = this.x;
             foodies[this.carriedFoodID].y = this.y;
         }
@@ -138,10 +141,14 @@ class Ant {
         var rr = world.worldMap[xPos + 1][yPos];
         var rd = world.worldMap[xPos + 1][yPos + 1];
 
-        const arr = [lu, ll, ld, uu, dd, ru, rr, rd];
+        var arr = [lu, ll, ld, uu, dd, ru, rr, rd];
 
-        const max = Math.max(arr)
-        const chosen = arr[arr.indexOf(max)]
+        arr = arr.filter(function(item) { 
+            return item > 25;
+          });
+
+        const best = Math.min(arr)
+        const chosen = arr[arr.indexOf(best)]
 
         switch (chosen) {
             case lu: return [-1, -1]; break;
@@ -153,7 +160,7 @@ class Ant {
             case rr: return [+1, -0]; break;
             case rd: return [+1, +1]; break;
 
-            default: return [floor(random(-1, 1)), floor(random(-1, 1))]; break;
+            default: return [(random(-1, 1)), (random(-1, 1))]; break;
         }
     }
 }

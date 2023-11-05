@@ -20,7 +20,7 @@ class Nest {
         strokeWeight(this.size / 10);
         fill(this.r, this.g, this.b);
         rectMode(CENTER);
-        rect(this.x, this.y, this.size, this.size);
+        // rect(this.x, this.y, this.size, this.size);
 
         fill(255);
         stroke(0);
@@ -30,7 +30,7 @@ class Nest {
     }
 
     grow() {
-        if (this.food >= 100) {
+        if (this.food >= 25) {
             this.food = 0;
             this.produceAnt();
             this.size += 1;

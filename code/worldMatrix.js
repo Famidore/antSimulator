@@ -13,7 +13,7 @@ class WorldMatrix {
 
         this.smellMap = [];
 
-        this.delay = 30;
+        this.delay = 10;
         this.deleteValue = 11;
         this.spreadStrength = 4;
     }
@@ -50,16 +50,6 @@ class WorldMatrix {
         for (let i = 0; i < this.ySize; i++) {
             line(0, this.rectHeight * i, width, this.rectHeight * i);
         }
-
-        //2nd
-        // for (let i = 0 ; i < this.xSize; i++){
-        //     for (let j = 0; j < this.ySize; j++){
-        //         noFill();
-        //         stroke(150, 50);
-        //         strokeWeight(1);
-        //         rect(i * this.rectWidth, j * this.rectHeight, this.rectWidth, this.rectHeight);
-        //     }
-        // }
 
         // noStroke();
         // rectMode(CORNER);
@@ -138,7 +128,6 @@ class WorldMatrix {
                     this.feromoneMap.splice(this.feromoneMap[i], 1);
                 }
             }
-            // console.log(this.feromoneMap.length)
         }
     }
 }

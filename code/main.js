@@ -4,21 +4,21 @@ let foodies = [];
 let world;
 
 var nestsPop = 5;
-var antsPop = 2000;
+var antsPop = 100;
 
 var foodAmmount = 100;
 var foodRange = 100;
 
 let foodCount = 0;
 
-let evaporateRate = 10;
+let evaporateRate = 0.5;
 
 
 function setup() {
   frameRate(60);
   createCanvas(800, 800);
 
-  world = new WorldMatrix(200, 200, evaporateRate);
+  world = new WorldMatrix(100, 100, evaporateRate);
   world.createWorldMap();
 
   for (let j = 0; j < nestsPop; j++) {
