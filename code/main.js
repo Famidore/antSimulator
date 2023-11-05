@@ -4,14 +4,14 @@ let foodies = [];
 let world;
 
 var nestsPop = 5;
-var antsPop = 100;
+var antsPop = 1000;
 
 var foodAmmount = 100;
 var foodRange = 100;
 
 let foodCount = 0;
 
-let evaporateRate = 0.5;
+let evaporateRate = 1;
 
 
 function setup() {

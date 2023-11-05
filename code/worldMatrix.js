@@ -13,7 +13,7 @@ class WorldMatrix {
 
         this.smellMap = [];
 
-        this.delay = 10;
+        this.delay = 1;
         this.deleteValue = 11;
         this.spreadStrength = 4;
     }

@@ -11,15 +11,13 @@ class Ant {
         this.size = tempSize;
         this.angle = 0;
 
-        this.xoff = 0;
-        this.yoff = 0;
-
+        this.attractionForce = 0.5;
 
         // battle stats
 
         this.attack = 3;
         this.health = 10;
-        this.moveSpeed = 2;
+        this.moveSpeed = 1;
 
         this.foodFound = false;
         this.carriedFoodID = null;
@@ -49,6 +47,13 @@ class Ant {
                         this.carriedFoodID = i;
                         if (!foodies[i].isCarried) {
                             foodies[i].isCarried = true;
+                            for (let a = -1; a <= 1; a++) {
+                                for (let b = -1; b <= 1; b++) {
+                                    world.worldMap[floor(floor(this.x) / this.rectW) + a][floor(floor(this.y) / this.rectH) + b] += 150;
+                                    world.feromoneMap.push([floor(floor(this.x) / this.rectW) + a, floor(floor(this.y) / this.rectH) + b]);
+                                }
+                            }
+
                         }
                     }
                 }
@@ -56,8 +61,8 @@ class Ant {
                 if (this.checkIfNewPos()) {
                     var newMove = this.checkPheromone(this.currX, this.currY);
 
-                    this.x += (Math.random() - 0.5) * 2 * this.moveSpeed + (newMove[0] * this.rectW) * 0.1;
-                    this.y += (Math.random() - 0.5) * 2 * this.moveSpeed + (newMove[1] * this.rectH) * 0.1;
+                    this.x += (newMove[0] * this.rectW) * this.attractionForce * this.moveSpeed;
+                    this.y += (newMove[1] * this.rectH) * this.attractionForce * this.moveSpeed;
                 } else {
                     this.x += (Math.random() - 0.5) * 2 * this.moveSpeed;
                     this.y += (Math.random() - 0.5) * 2 * this.moveSpeed;
@@ -90,7 +95,7 @@ class Ant {
     }
 
     releasePheromone() {
-        if (frameCount % world.delay == 0) {
+        if (frameCount % world.delay == 0 && dist(this.x, this.y, nests[this.nestID].x, nests[this.nestID].y) > 50) {
             if (world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] < 150) {
                 world.worldMap[floor(floor(this.x) / this.rectW)][floor(floor(this.y) / this.rectH)] += 50;
                 world.feromoneMap.push([floor(floor(this.x) / this.rectW), floor(floor(this.y) / this.rectH)]);
@@ -130,37 +135,41 @@ class Ant {
 
     // find new square to head to
     checkPheromone(xPos, yPos) {
-        var lu = world.worldMap[xPos - 1][yPos - 1];
-        var ll = world.worldMap[xPos - 1][yPos];
-        var ld = world.worldMap[xPos - 1][yPos + 1];
+        if (xPos > 1 && xPos < world.xSize - 1 && yPos > 1 && yPos < world.ySize - 1) {
+            var lu = world.worldMap[xPos - 1][yPos - 1];
+            var ll = world.worldMap[xPos - 1][yPos];
+            var ld = world.worldMap[xPos - 1][yPos + 1];
 
-        var uu = world.worldMap[xPos][yPos - 1];
-        var dd = world.worldMap[xPos][yPos + 1];
+            var uu = world.worldMap[xPos][yPos - 1];
+            var dd = world.worldMap[xPos][yPos + 1];
 
-        var ru = world.worldMap[xPos + 1][yPos - 1];
-        var rr = world.worldMap[xPos + 1][yPos];
-        var rd = world.worldMap[xPos + 1][yPos + 1];
+            var ru = world.worldMap[xPos + 1][yPos - 1];
+            var rr = world.worldMap[xPos + 1][yPos];
+            var rd = world.worldMap[xPos + 1][yPos + 1];
 
-        var arr = [lu, ll, ld, uu, dd, ru, rr, rd];
+            var arr = [lu, ll, ld, uu, dd, ru, rr, rd];
 
-        arr = arr.filter(function(item) { 
-            return item > 25;
-          });
+            arr = arr.filter(function (item) {
+                return item > world.deleteValue;
+            });
 
-        const best = Math.min(arr)
-        const chosen = arr[arr.indexOf(best)]
+            const best = Math.min(arr)
+            const chosen = arr[arr.indexOf(best)]
 
-        switch (chosen) {
-            case lu: return [-1, -1]; break;
-            case ll: return [-1, 0]; break;
-            case ld: return [-1, +1]; break;
-            case uu: return [0, -1]; break;
-            case dd: return [0, +1]; break;
-            case ru: return [+1, -1]; break;
-            case rr: return [+1, -0]; break;
-            case rd: return [+1, +1]; break;
+            switch (chosen) {
+                case lu: return [-1, -1]; break;
+                case ll: return [-1, 0]; break;
+                case ld: return [-1, +1]; break;
+                case uu: return [0, -1]; break;
+                case dd: return [0, +1]; break;
+                case ru: return [+1, -1]; break;
+                case rr: return [+1, -0]; break;
+                case rd: return [+1, +1]; break;
 
-            default: return [(random(-1, 1)), (random(-1, 1))]; break;
+                default: return [(random(-1, 1)), (random(-1, 1))]; break;
+            }
+        } else {
+            return [(random(-1, 1)), (random(-1, 1))];
         }
     }
 }
