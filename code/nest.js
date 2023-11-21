@@ -18,9 +18,9 @@ class Nest {
     show() {
         stroke(0);
         strokeWeight(this.size / 10);
-        fill(this.r, this.g, this.b);
+        fill(this.r, this.g, this.b, 50);
         rectMode(CENTER);
-        // rect(this.x, this.y, this.size, this.size);
+        rect(this.x, this.y, this.size, this.size);
 
         fill(255);
         stroke(0);

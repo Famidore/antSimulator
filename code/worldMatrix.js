@@ -1,5 +1,5 @@
 class WorldMatrix {
-    constructor(tempXSize, tempYSize, tempEvapRate) {
+    constructor(tempXSize, tempYSize, tempEvapRate, tempDelay, tempDeleteValue, tempSpreadStrength) {
         this.xSize = tempXSize;
         this.ySize = tempYSize;
         this.evapRate = tempEvapRate;
@@ -13,9 +13,9 @@ class WorldMatrix {
 
         this.smellMap = [];
 
-        this.delay = 1;
-        this.deleteValue = 11;
-        this.spreadStrength = 4;
+        this.delay = tempDelay;
+        this.deleteValue = tempDeleteValue;
+        this.spreadStrength = tempSpreadStrength;
     }
 
     createWorldMap() {
@@ -41,7 +41,6 @@ class WorldMatrix {
     }
 
     show() {
-        // 1st
         stroke(150, 50);
         strokeWeight(1);
         for (let i = 0; i < this.xSize; i++) {
@@ -50,15 +49,6 @@ class WorldMatrix {
         for (let i = 0; i < this.ySize; i++) {
             line(0, this.rectHeight * i, width, this.rectHeight * i);
         }
-
-        // noStroke();
-        // rectMode(CORNER);
-        // if (this.smellMap.length > 0) {
-        //     for (let z = 0; z < this.smellMap.length; z++) {
-        //         fill(255, 0, 0, this.worldMap[this.smellMap[z][0]][this.smellMap[z][1]]);
-        //         rect(this.smellMap[z][0] * this.rectWidth, this.smellMap[z][1] * this.rectHeight, this.rectWidth, this.rectHeight);
-        //     }
-        // }
 
         noStroke();
         rectMode(CORNER);
@@ -81,18 +71,16 @@ class WorldMatrix {
 
                     if (chosen && chosenStrength > 25) {
 
-                        // the good garbage
-
-                        this.smellMap.push([this.smellMap[chosen][0] - 1, [this.smellMap[chosen][1]]]);       // -1  0
+                        this.smellMap.push([this.smellMap[chosen][0] - 1, [this.smellMap[chosen][1]]]);           // -1  0
                         this.worldMap[this.smellMap[chosen][0] - 1][this.smellMap[chosen][1]] += chosenStrength / this.spreadStrength;
 
-                        this.smellMap.push([this.smellMap[chosen][0] + 1, [this.smellMap[chosen][1]]]);       // +1  0
+                        this.smellMap.push([this.smellMap[chosen][0] + 1, [this.smellMap[chosen][1]]]);           // +1  0
                         this.worldMap[this.smellMap[chosen][0] + 1][this.smellMap[chosen][1]] += chosenStrength / this.spreadStrength;
 
-                        this.smellMap.push([this.smellMap[chosen][0], [this.smellMap[chosen][1]] - 1]);       // 0  -1
+                        this.smellMap.push([this.smellMap[chosen][0], [this.smellMap[chosen][1]] - 1]);           // 0  -1
                         this.worldMap[this.smellMap[chosen][0]][this.smellMap[chosen][1] - 1] += chosenStrength / this.spreadStrength;
 
-                        this.smellMap.push([this.smellMap[chosen][0], [this.smellMap[chosen][1]] + 1]);       // 0  +1
+                        this.smellMap.push([this.smellMap[chosen][0], [this.smellMap[chosen][1]] + 1]);           // 0  +1
                         this.worldMap[this.smellMap[chosen][0]][this.smellMap[chosen][1] + 1] += chosenStrength / this.spreadStrength;
 
                         this.smellMap.push([this.smellMap[chosen][0] - 1, [this.smellMap[chosen][1]] - 1]);       // -1 -1

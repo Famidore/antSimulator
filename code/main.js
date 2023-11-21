@@ -1,28 +1,53 @@
+let filePath = "initParams.json";
+let initParams;
+
+var cnv;
+
+function preload() {
+  initParams = loadJSON(filePath, console.log("File read succesfully"), console.log("There's been an error reading the file"));
+}
+
 let ants = [];
 let nests = [];
 let foodies = [];
 let world;
 
-var nestsPop = 5;
-var antsPop = 1000;
+var nestsPop;
+var antsPop;
 
-var foodAmmount = 100;
-var foodRange = 100;
+var foodAmmount;
+var foodRange;
 
 let foodCount = 0;
 
-let evaporateRate = 1;
+let evaporateRate;
 
 
 function setup() {
   frameRate(60);
-  createCanvas(800, 800);
+  cnv = createCanvas(800, 800);
+  centerCanvas();
 
-  world = new WorldMatrix(100, 100, evaporateRate);
+  nestsPop = readParams("numberOfNests");
+  antsPop = readParams("antPopulation");
+  foodAmmount = readParams("foodAmmount");
+  foodRange = readParams("foodRange");
+  evaporateRate = readParams("evaporateRate");
+
+  var worldWidth = readParams("worldWidth");
+  var worldHeight = readParams("worldHeight");
+
+  var delay = readParams("delay");
+  var deleteValue = readParams("deleteValue");
+
+  world = new WorldMatrix(worldWidth, worldHeight, evaporateRate, delay, deleteValue, 4);
   world.createWorldMap();
 
   for (let j = 0; j < nestsPop; j++) {
-    nests.push(new Nest(random(50, width - 50), random(50, height - 50), 'none', j, [random(100, 255), random(10, 255), random(50, 255)]))
+    var nestX = readParams("nestsPosition")[j][0] == "random" ? random(50, width - 50) : readParams("nestsPosition")[j][0];
+    var nestY = readParams("nestsPosition")[j][1] == "random" ? random(50, height - 50) : readParams("nestsPosition")[j][1];;
+
+    nests.push(new Nest(nestX, nestY, 'none', j, [random(100, 255), random(10, 255), random(50, 255)]))
     for (let i = 0; i < antsPop; i++) {
       ants.push(new Ant(nests[j].x, nests[j].y, 2, i, j));
     }
@@ -38,18 +63,18 @@ function draw() {
 
 
   noStroke();
-  for (ant of ants) {
-    fill(nests[ant.nestID].r, nests[ant.nestID].g, nests[ant.nestID].b, 200);
-    ant.show();
-    ant.move();
+  for (let i = 0; i < ants.length; i++) {
+    fill(nests[ants[i].nestID].r, nests[ants[i].nestID].g, nests[ants[i].nestID].b, 200);
+    ants[i].show();
+    ants[i].move();
   }
   for (nest of nests) {
     nest.show();
     nest.grow();
   }
 
-  for (food of foodies) {
-    food.show();
+  for (let i = 0; i < foodies.length; i++) {
+    foodies[i].show();
     // food.smell();
   }
 
@@ -61,13 +86,11 @@ function draw() {
 
   world.tidyUp();
 
-  let fps = frameRate();
+  var fps = frameRate();
   textSize(15)
   fill(255);
   stroke(0);
-  text("FPS: " + fps.toFixed(2), 10, height - 10);
-
-  // console.log([floor(floor(ants[0].x) / ants[0].rectW), floor(floor(ants[0].y) / ants[0].rectH)])
+  text("FPS: " + fps.toFixed(2), width / 2, height - 10);
 }
 
 

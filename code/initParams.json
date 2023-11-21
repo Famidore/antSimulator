@@ -1,0 +1,39 @@
+{
+    "numberOfNests": [
+        3
+    ],
+    "antPopulation": [
+        500
+    ],
+    "foodAmmount": [
+        5
+    ],
+    "foodRange": [
+        20
+    ],
+    "evaporateRate": [
+        5
+    ],
+    "worldWidth": [
+        100
+    ],
+    "worldHeight": [
+        100
+    ],
+    "nestsPosition": [
+        ["random", "random"],
+        [150, 150],
+        [200, 200],
+        [null, null],
+        [null, null],
+        [null, null],
+        [null, null],
+        [null, null]  
+    ],
+    "delay": [
+        5
+    ],
+    "deleteValue": [
+        11
+    ]
+}

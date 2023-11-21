@@ -13,11 +13,9 @@ class Ant {
 
         this.attractionForce = 0.5;
 
-        // battle stats
-
-        this.attack = 3;
-        this.health = 10;
-        this.moveSpeed = 1;
+        // this.attack = 3;
+        // this.health = 10;
+        this.moveSpeed = 0.5;
 
         this.foodFound = false;
         this.carriedFoodID = null;
@@ -53,7 +51,6 @@ class Ant {
                                     world.feromoneMap.push([floor(floor(this.x) / this.rectW) + a, floor(floor(this.y) / this.rectH) + b]);
                                 }
                             }
-
                         }
                     }
                 }
