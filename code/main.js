@@ -29,9 +29,11 @@ function setup() {
   centerCanvas();
 
   nestsPop = readParams("numberOfNests");
-  antsPop = readParams("antPopulation");
+  antsPop = readParams("antPopulation") == "random" ? floor(random(100, 1000)) : readParams("antPopulation");
+
   foodAmmount = readParams("foodAmmount");
   foodRange = readParams("foodRange");
+
   evaporateRate = readParams("evaporateRate");
 
   var worldWidth = readParams("worldWidth");

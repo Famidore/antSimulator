@@ -15,7 +15,7 @@ class Ant {
 
         // this.attack = 3;
         // this.health = 10;
-        this.moveSpeed = 0.5;
+        this.moveSpeed = 1;
 
         this.foodFound = false;
         this.carriedFoodID = null;
@@ -87,6 +87,7 @@ class Ant {
         } else {
             if (this.foodFound) {
                 this.removeFood();
+                this.foodFound = false;
             }
         }
     }
