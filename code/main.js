@@ -4,7 +4,7 @@ let initParams;
 var cnv;
 
 function preload() {
-  initParams = loadJSON(filePath, console.log("File read succesfully"), console.log("There's been an error reading the file"));
+  initParams = loadJSON(filePath, console.log("\nPomyślnie odczytano plik konfiguracyjny!\n"));
 }
 
 let ants = [];
@@ -14,6 +14,8 @@ let world;
 
 var nestsPop;
 var antsPop;
+
+var nestFoodLimit;
 
 var foodAmmount;
 var foodRange;
@@ -30,6 +32,7 @@ function setup() {
 
   nestsPop = readParams("numberOfNests");
   antsPop = readParams("antPopulation") == "random" ? floor(random(100, 1000)) : readParams("antPopulation");
+  nestFoodLimit = readParams("nestFoodLimit");
 
   foodAmmount = readParams("foodAmmount");
   foodRange = readParams("foodRange");
@@ -49,7 +52,7 @@ function setup() {
     var nestX = readParams("nestsPosition")[j][0] == "random" ? random(50, width - 50) : readParams("nestsPosition")[j][0];
     var nestY = readParams("nestsPosition")[j][1] == "random" ? random(50, height - 50) : readParams("nestsPosition")[j][1];;
 
-    nests.push(new Nest(nestX, nestY, 'none', j, [random(100, 255), random(10, 255), random(50, 255)]))
+    nests.push(new Nest(nestX, nestY, 'none', j, [random(100, 255), random(10, 255), random(50, 255)], nestFoodLimit))
     for (let i = 0; i < antsPop; i++) {
       ants.push(new Ant(nests[j].x, nests[j].y, 2, i, j));
     }

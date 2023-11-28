@@ -1,18 +1,18 @@
 {
     "numberOfNests": [
-        3
+        1
     ],
     "antPopulation": [
-        5
+        1
     ],
     "foodAmmount": [
         5
     ],
     "foodRange": [
-        20
+        100
     ],
     "evaporateRate": [
-        5
+        1
     ],
     "worldWidth": [
         100
@@ -23,9 +23,9 @@
     "nestsPosition": [
         ["random", "random"],
         [150, 150],
-        [200, 200],
-        [null, null],
-        [null, null],
+        ["random", "random"],
+        ["random", "random"],
+        ["random", "random"],
         [null, null],
         [null, null],
         [null, null]  
@@ -35,5 +35,8 @@
     ],
     "deleteValue": [
         11
+    ],
+    "nestFoodLimit": [
+        25
     ]
 }

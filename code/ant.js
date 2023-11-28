@@ -117,7 +117,7 @@ class Ant {
 
             this.foodFound = false;
             this.carriedFoodID = null;
-            console.log("returned");
+            // console.log("returned");
         }
     }
 
@@ -125,6 +125,7 @@ class Ant {
         if (floor(floor(this.x) / this.rectW) != this.currX || floor(floor(this.y) / this.rectH) != this.currY) {
             this.currX = floor(floor(this.x) / this.rectW);
             this.currY = floor(floor(this.y) / this.rectH);
+            // testConversion(ants[0]);
             return true;
         } else {
             return false;

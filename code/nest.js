@@ -1,5 +1,5 @@
 class Nest {
-    constructor(tempX, tempY, tempType, tempID, tempCol) {
+    constructor(tempX, tempY, tempType, tempID, tempCol, tempfoodLimit) {
         this.ID = tempID;
 
         this.x = tempX;
@@ -13,6 +13,7 @@ class Nest {
         this.size = 10;
 
         this.food = 0;
+        this.foodLimit = tempfoodLimit
     }
 
     show() {
@@ -30,7 +31,7 @@ class Nest {
     }
 
     grow() {
-        if (this.food >= 25) {
+        if (this.food >= this.foodLimit) {
             this.food = 0;
             this.produceAnt();
             this.size += 1;
