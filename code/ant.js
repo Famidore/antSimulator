@@ -117,7 +117,6 @@ class Ant {
 
             this.foodFound = false;
             this.carriedFoodID = null;
-            // console.log("returned");
         }
     }
 

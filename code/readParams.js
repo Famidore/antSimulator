@@ -4,7 +4,7 @@ function readParams(params) {
 
     for (let i = 0; i < initData.length; i++) {
         if (initData[i] != [null, null] && initData[i] != [null])
-        returnedData.push(initData[i]);
+            returnedData.push(initData[i]);
     }
 
     return returnedData;

@@ -28,7 +28,6 @@ class Food {
                 world.foodMap.splice(i, 1);
             }
         }
-
     }
 
 }
