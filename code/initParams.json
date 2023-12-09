@@ -1,15 +1,15 @@
 {
     "numberOfNests": [
-        1
+        2
     ],
     "antPopulation": [
-        5000
+        1000
     ],
     "foodAmmount": [
         5
     ],
     "foodRange": [
-        100
+        20
     ],
     "evaporateRate": [
         1
